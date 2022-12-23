@@ -20,7 +20,7 @@ public class ApiControllerBase : ControllerBase
         _logger.LogTrace("Enter in {Path} with parameters: {Parameters}", HttpContext.Request.Path.Value, json);
     }
     
-    protected void LogLeave(object result)
+    protected void LogLeave(object? result)
     {
         var json = JsonConvert.SerializeObject(result);
         _logger.LogTrace("Leaving {Path} with result {Result}", HttpContext.Request.Path.Value, json);

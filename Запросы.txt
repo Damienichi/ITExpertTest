@@ -1,0 +1,11 @@
+POSTGRESQL:
+
+1)
+Написать запрос, который возвращает наименование клиентов и кол-во контактов клиентов
+
+select Clients.ClientName , count(ClientContacts.ContactValue) from Clients inner join ClientContacts on Clients.Id = ClientContacts.ClientId group by Clients.ClientName;  
+
+2)
+Написать запрос, который возвращает список клиентов, у которых есть более 2 контактов
+
+select Clients from Clients inner join ClientContacts on Clients.id = ClientContacts.ClientId group by Clients.* having count(ClientContacts.ContactValue) > 2 ;  

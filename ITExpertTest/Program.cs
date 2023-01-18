@@ -1,5 +1,6 @@
 using ITExpertTest.Contexts;
 using ITExpertTest.Interfaces;
+using ITExpertTest.Middleware;
 using ITExpertTest.Repositories;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -41,6 +42,9 @@ try
         app.UseSwaggerUI();
     }
 
+    
+    app.UseMiddleware<ErrorHandlingMiddleware>();
+    
     app.UseHttpsRedirection();
 
     app.UseAuthorization();

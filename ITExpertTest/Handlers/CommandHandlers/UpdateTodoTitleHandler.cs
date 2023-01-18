@@ -21,17 +21,18 @@ public class UpdateTodoTitleHandler: IRequestHandler<UpdateTodoTitleCommand, Tod
 
     public async Task<TodoResponse?> Handle(UpdateTodoTitleCommand request, CancellationToken cancellationToken)
     {
-        Todo? todo;
         try
         {
-           todo = await _todoRepository.UpdateTitle(request.Id, request.NewTitle, cancellationToken);
+            var todo = await _todoRepository.UpdateTitle(request.Id, request.NewTitle, cancellationToken);
+            return _mapper.Map(todo, new TodoResponse());
         }
-        catch (UniquenessViolationException e)
+        catch (Exception e)
         {
-            // TODO: Логгирование и обработка ошибки
-            return null;
+            throw new ErrorException()
+            {
+                ErrorMessage = e.Message,
+                ErrorDescription = "Error while updating todo title"
+            };
         }
-        
-        return _mapper.Map(todo, new TodoResponse());
     }
 }

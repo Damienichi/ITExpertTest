@@ -25,13 +25,15 @@ public class CreateTodoHandler: IRequestHandler<CreateTodoCommand, TodoResponse?
         try
         {
             _todoRepository.Create(todo);
+            return _mapper.Map(todo, new TodoResponse());
         }
-        catch (UniquenessViolationException e)
+        catch (Exception e)
         {
-            // TODO: Логгирование и обработка ошибки
-            return null;
+            throw new ErrorException()
+            {
+                ErrorMessage = e.Message,
+                ErrorDescription = "Error while creating todo"
+            };
         }
-        
-        return _mapper.Map(todo, new TodoResponse());
     }
 }

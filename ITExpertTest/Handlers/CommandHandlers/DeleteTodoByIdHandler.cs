@@ -30,8 +30,11 @@ public class DeleteTodoByIdHandler: IRequestHandler<DeleteTodoByIdCommand, bool>
         }
         catch (Exception e)
         {
-            // TODO: Логгирование и обработка ошибки
-            return false;
+            throw new ErrorException()
+            {
+                ErrorMessage = e.Message,
+                ErrorDescription = "Error while deleting todo"
+            };
         }
 
         return true;

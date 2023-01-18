@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ITExpertTest.Commands;
+using ITExpertTest.Exceptions;
 using ITExpertTest.Interfaces;
 using ITExpertTest.Models.Entities;
 using MediatR;
@@ -26,8 +27,11 @@ public class AddCommentaryToTodoByIdHandler: IRequestHandler<AddCommentaryToTodo
         }
         catch (Exception e)
         {
-            //TODO: logs + обработка ошибок
-            return null;
+            throw new ErrorException()
+            {
+                ErrorMessage = e.Message,
+                ErrorDescription = "Error while adding commentary"
+            };
         }
 
         return commentary;
